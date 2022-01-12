@@ -6,10 +6,10 @@ import generateMd5Key from '../utils/generateMd5';
 import { createNewFlightId, fetchSearchResults } from '../services/flight.service';
 import logger from '../utils/logger';
 
-const token = config.get<string>('token');
-const marker = config.get<number>('marker');
-const language = config.get<string>('language');
-const host = config.get<string>('host');
+const token = '85de6f3a6caba8d221a1106573762b5f';
+const marker = '189998';
+const language = 'en';
+const host = 'localhost';
 
 export const searchId = async (req: Request<{}, {}, CreateSearchIDInput['body']>, res: Response) => {
   const body = req.body;
