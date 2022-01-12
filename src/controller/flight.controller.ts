@@ -41,43 +41,43 @@ export const searchId = async (req: Request<{}, {}, CreateSearchIDInput['body']>
       body.trip_class +
       ':' +
       body.user_ip;
+
+    const generatedmd5 = generateMd5Key(stringSignarutre);
+    const searchObject = {
+      signature: generatedmd5,
+      marker: marker.toString(),
+      host: host,
+      user_ip: body.user_ip,
+      locale: language,
+      trip_class: body.trip_class,
+      passengers: {
+        adult: body.passengers.adult.toString(),
+        children: body.passengers.children.toString(),
+        infant: '0',
+      },
+      segments: [
+        {
+          origin: body.segments[0].origin,
+          destination: body.segments[0].destination,
+          date: body.segments[0].date,
+        },
+      ],
+    };
+
+    try {
+      const reply = await createNewFlightId(searchObject);
+      if (reply?.status === 200) {
+        res.send(reply.data);
+      } else {
+        res.status(500).json({ error: reply.data });
+      }
+    } catch (er) {
+      logger.error(er);
+    }
   } else {
     res.status(400).send({
       message: 'flight_type must be 0',
     });
-  }
-
-  const generatedmd5 = generateMd5Key(stringSignarutre);
-  const searchObject = {
-    signature: generatedmd5,
-    marker: marker.toString(),
-    host: host,
-    user_ip: body.user_ip,
-    locale: language,
-    trip_class: body.trip_class,
-    passengers: {
-      adult: body.passengers.adult.toString(),
-      children: body.passengers.children.toString(),
-      infant: '0',
-    },
-    segments: [
-      {
-        origin: body.segments[0].origin,
-        destination: body.segments[0].destination,
-        date: body.segments[0].date,
-      },
-    ],
-  };
-
-  try {
-    const reply = await createNewFlightId(searchObject);
-    if (reply?.status === 200) {
-      res.send(reply.data);
-    } else {
-      res.status(500).json({ error: reply.data });
-    }
-  } catch (er) {
-    logger.error(er);
   }
 };
 
@@ -86,11 +86,8 @@ export const searchResults = async (req: Request<GetSearchResultsInput['params']
 
   try {
     const reply = await fetchSearchResults(searchId);
-    if (reply?.status === 200) {
-      res.send(reply.data);
-    } else {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+
+    res.send(reply);
   } catch (er) {
     logger.error(er);
   }
