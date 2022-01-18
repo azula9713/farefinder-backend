@@ -8,7 +8,7 @@ import cors from 'cors';
 import logger from './utils/logger';
 import routes from './routes/routes.index';
 
-const port = 1337;
+const port = config.get<number>('port');
 
 const app = express();
 
