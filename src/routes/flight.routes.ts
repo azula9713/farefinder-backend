@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { searchId, searchResults } from '../controller/flight.controller';
+import { agencyData, searchId, searchResults } from '../controller/flight.controller';
 
 const router = Router();
 
@@ -10,5 +10,7 @@ router.route('/').get((req, res) => {
 router.route('/getsearchid').post(searchId);
 
 router.route('/search_results/:searchId').get(searchResults);
+
+router.route('/agencydata').get(agencyData);
 
 export default router;

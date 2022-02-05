@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import config from 'config';
 
-import { CreateSearchIDInput, GetSearchResultsInput } from '../schemas/flightSearch.schema';
+import { CreateSearchIDInput, GetAgencyDataInput, GetSearchResultsInput } from '../schemas/flightSearch.schema';
 import generateMd5Key from '../utils/generateMd5';
-import { createNewFlightId, fetchSearchResults } from '../services/flight.service';
+import { createNewFlightId, fetchAgencyData, fetchSearchResults } from '../services/flight.service';
 import logger from '../utils/logger';
 
 const token = config.get<string>('token');
@@ -125,6 +125,19 @@ export const searchResults = async (req: Request<GetSearchResultsInput['params']
 
   try {
     const reply = await fetchSearchResults(searchId);
+    // logger.info(reply);
+
+    res.send(reply);
+  } catch (er) {
+    logger.error(er);
+  }
+};
+
+export const agencyData = async (req: Request<{}, {}, {}, GetAgencyDataInput['query']>, res: Response) => {
+  const { searchId, termUrl } = req.query;
+
+  try {
+    const reply = await fetchAgencyData(searchId, termUrl);
 
     res.send(reply);
   } catch (er) {

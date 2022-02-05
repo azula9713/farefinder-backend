@@ -13,6 +13,16 @@ export const createNewFlightId = async (searchObject: object) => {
   }
 };
 
+export const fetchAgencyData = async (searchId: string, termUrl: string) => {
+  try {
+    const resp = await axios.get(`https://api.travelpayouts.com/v1/flight_searches/${searchId}/clicks/${termUrl}.json`);
+
+    return resp.data;
+  } catch (error) {
+    logger.error(error);
+  }
+};
+
 export const fetchSearchResults = async (searchId: string) => {
   try {
     const resp = await axios.get('https://api.travelpayouts.com/v1/flight_search_results', {
