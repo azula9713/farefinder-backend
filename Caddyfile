@@ -1,4 +1,4 @@
-147.182.164.27 {
+ffbackend.azula9713.me {
     reverse_proxy farefinder-backend:1337 {
         header_down Strict-Transport-Security max-age=31536000;
     }
