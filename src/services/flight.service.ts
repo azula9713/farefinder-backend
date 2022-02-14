@@ -46,9 +46,21 @@ export const fetchSearchResults = async (searchId: string) => {
 };
 
 export const restructreSearchResults = (data: any) => {
-  const airTrips: any[] = [];
+  const flights: any[] = [];
 
-  data.map((agent: any) => agent?.proposals?.map((proposal: any) => airTrips.push(proposal)));
+  // data.map((agent: any) => agent?.proposals?.map((proposal: any) => airTrips.push(proposal)));
+  data.map((agent: any) => {
+    if (agent?.proposals) {
+      agent.proposals.map((proposal: any) => {
+        if (flights.find((x) => x.segment[0].flight[0].number === proposal.segment[0].flight[0].number) === undefined) {
+          flights.push(proposal);
+        }
+      });
+    }
+  });
 
-  return airTrips;
+  return {
+    flights: flights,
+    agents: data,
+  };
 };
