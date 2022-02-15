@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
     lastName: { type: String, required: true },
     password: { type: String, required: true, minlength: 6 },
     isEmailVerified: { type: Boolean, default: false },
-    userType: { type: Number, required: true },
+    userType: { type: Number, required: true }, //superAdmin:1, admin:3, user:5, agent:7
     photoURL: { type: String, required: true },
   },
   {

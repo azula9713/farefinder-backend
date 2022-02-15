@@ -1,8 +1,6 @@
-const dbUsername = 'ffadmin';
-const dbPassword = '6GoW8gacrsWqtbU1';
-
 export default {
   port: ``,
+  saltWorkFactor: 10,
   redis: {
     port: 6379,
     host: 'localhost',
@@ -14,7 +12,13 @@ export default {
     name: 'sid',
     idleTimeout: 1000 * 60 * 30,
   },
-  dbUri: `mongodb+srv://${dbUsername}:${dbPassword}@cluster0.6dsw4.mongodb.net/farefinder?retryWrites=true&w=majority`,
+  mongo: {
+    username: ``,
+    password: ``,
+    dbName: ``,
+    host: ``,
+  },
+  // dbUri: `mongodb+srv://${dbUsername}:${dbPassword}@cluster0.6dsw4.mongodb.net/farefinder?retryWrites=true&w=majority`,
   token: ``,
   marker: ``, //affiliateID
   currency: 'usd',
