@@ -1,4 +1,4 @@
-import { array, number, object, string, TypeOf } from 'zod';
+import { object, string, TypeOf } from 'zod';
 
 const popularLocationPayload = {
   body: object({

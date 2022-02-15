@@ -1,6 +1,8 @@
 export default {
   port: ``,
   saltWorkFactor: 10,
+  accessTokenTTL: '30m',
+  refreshTokenTTL: '30d',
   redis: {
     port: 6379,
     host: 'localhost',
@@ -18,7 +20,6 @@ export default {
     dbName: ``,
     host: ``,
   },
-  // dbUri: `mongodb+srv://${dbUsername}:${dbPassword}@cluster0.6dsw4.mongodb.net/farefinder?retryWrites=true&w=majority`,
   token: ``,
   marker: ``, //affiliateID
   currency: 'usd',

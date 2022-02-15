@@ -16,7 +16,7 @@ import {
 import logger from '../utils/logger';
 
 const createPopularLocationHandler = async (req: Request<{}, {}, CreatePopularLocationInput['body']>, res: Response) => {
-  const userId = res.locals.user_id;
+  const userId = res.locals.user._id;
 
   const body = req.body;
 
