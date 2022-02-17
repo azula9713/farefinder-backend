@@ -1,4 +1,4 @@
-import { object, string, TypeOf } from 'zod';
+import { boolean, object, string, TypeOf } from 'zod';
 
 const popularLocationPayload = {
   body: object({
@@ -8,6 +8,7 @@ const popularLocationPayload = {
     locationAirportCode: string({ required_error: 'Location airport code is required' }),
     locationHotelCode: string({ required_error: 'Location hotel code is required' }),
     locationCarCode: string({ required_error: 'Location car code is required' }),
+    isActive: boolean({ required_error: 'Is active is required' }),
   }),
 };
 

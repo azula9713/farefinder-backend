@@ -18,8 +18,8 @@ import {
 
 const router = Router();
 
-router.route('/').get(getAllPopularLocationsHandler);
-router.route('/:locationId').get(validate(getPopularLocationSchema), getPopularLocationHandler);
+router.route('/all').get(getAllPopularLocationsHandler);
+router.route('/view/:locationId').get(validate(getPopularLocationSchema), getPopularLocationHandler);
 router.route('/create').post([requireUser, validate(createPopularLocationSchema)], createPopularLocationHandler);
 router.route('/update/:locationId').put([requireUser, validate(updatePopularLocationSchema)], updatePopularLocationHandler);
 router.route('/delete/:locationId').delete([requireUser, validate(deletePopularLocationSchema)], deletePopularLocationHandler);

@@ -13,6 +13,7 @@ export interface PopularLocationInput {
   locationAirportCode: string;
   locationHotelCode: string;
   locationCarCode: string;
+  isActive: boolean;
 }
 
 export interface IPopularLocation extends PopularLocationInput, mongoose.Document {
@@ -36,6 +37,7 @@ const popularLocationSchema = new mongoose.Schema(
     locationAirportCode: { type: String, required: true },
     locationHotelCode: { type: String, required: true },
     locationCarCode: { type: String, required: true },
+    isActive: { type: Boolean, default: false },
   },
   {
     timestamps: true,
