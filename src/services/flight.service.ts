@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import logger from '../utils/logger';
 
 export const createNewFlightId = async (searchObject: object) => {
@@ -14,8 +13,17 @@ export const createNewFlightId = async (searchObject: object) => {
   }
 };
 
+export const fetchAgencyData = async (searchId: string, termUrl: string) => {
+  try {
+    const resp = await axios.get(`https://api.travelpayouts.com/v1/flight_searches/${searchId}/clicks/${termUrl}.json`);
+
+    return resp.data;
+  } catch (error) {
+    logger.error(error);
+  }
+};
+
 export const fetchSearchResults = async (searchId: string) => {
-  logger.info(`searchId: ${searchId}`);
   try {
     const resp = await axios.get('https://api.travelpayouts.com/v1/flight_search_results', {
       params: {
@@ -23,9 +31,36 @@ export const fetchSearchResults = async (searchId: string) => {
       },
       headers: { 'Content-Type': 'application/json' },
     });
-    // console.log('resp', resp);
-    return resp;
+
+    if (resp.status === 200) {
+      const flights = restructreSearchResults(resp.data);
+      return flights;
+    } else {
+      return resp;
+    }
+
+    // return resp;
   } catch (error) {
     logger.error(error);
   }
+};
+
+export const restructreSearchResults = (data: any) => {
+  const flights: any[] = [];
+
+  // data.map((agent: any) => agent?.proposals?.map((proposal: any) => airTrips.push(proposal)));
+  data.map((agent: any) => {
+    if (agent?.proposals) {
+      agent.proposals.map((proposal: any) => {
+        if (flights.find((x) => x.segment[0].flight[0].number === proposal.segment[0].flight[0].number) === undefined) {
+          flights.push(proposal);
+        }
+      });
+    }
+  });
+
+  return {
+    flights: flights,
+    agents: data,
+  };
 };

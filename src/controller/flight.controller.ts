@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import config from 'config';
 
-import { CreateSearchIDInput, GetSearchResultsInput } from '../schemas/flightSearch.schema';
+import { CreateSearchIDInput, GetAgencyDataInput, GetSearchResultsInput } from '../schemas/flightSearch.schema';
 import generateMd5Key from '../utils/generateMd5';
-import { createNewFlightId, fetchSearchResults } from '../services/flight.service';
+import { createNewFlightId, fetchAgencyData, fetchSearchResults } from '../services/flight.service';
 import logger from '../utils/logger';
 
 const token = config.get<string>('token');
@@ -41,10 +41,41 @@ export const searchId = async (req: Request<{}, {}, CreateSearchIDInput['body']>
       body.trip_class +
       ':' +
       body.user_ip;
-  } else {
-    res.status(400).send({
-      message: 'flight_type must be 0',
-    });
+  } else if (flight_type === 1) {
+    stringSignarutre =
+      token +
+      ':' +
+      host +
+      ':' +
+      language +
+      ':' +
+      marker.toString() +
+      ':' +
+      body.passengers.adult.toString() +
+      ':' +
+      body.passengers.children.toString() +
+      ':' +
+      '0' +
+      ':' +
+      body.segments[0].date +
+      ':' +
+      body.segments[0].destination +
+      ':' +
+      body.segments[0].origin +
+      ':' +
+      body.segments[1].date +
+      ':' +
+      body.segments[1].destination +
+      ':' +
+      body.segments[1].origin +
+      ':' +
+      body.trip_class +
+      ':' +
+      body.user_ip;
+
+    // res.status(400).send({
+    //   message: 'flight_type must be 0',
+    // });
   }
 
   const generatedmd5 = generateMd5Key(stringSignarutre);
@@ -56,10 +87,11 @@ export const searchId = async (req: Request<{}, {}, CreateSearchIDInput['body']>
     locale: language,
     trip_class: body.trip_class,
     passengers: {
-      adult: body.passengers.adult.toString(),
+      adults: body.passengers.adult.toString(),
       children: body.passengers.children.toString(),
       infant: '0',
     },
+
     segments: [
       {
         origin: body.segments[0].origin,
@@ -68,6 +100,14 @@ export const searchId = async (req: Request<{}, {}, CreateSearchIDInput['body']>
       },
     ],
   };
+
+  if (flight_type === 1) {
+    searchObject.segments.push({
+      origin: body.segments[1].origin,
+      destination: body.segments[1].destination,
+      date: body.segments[1].date,
+    });
+  }
 
   try {
     const reply = await createNewFlightId(searchObject);
@@ -86,11 +126,21 @@ export const searchResults = async (req: Request<GetSearchResultsInput['params']
 
   try {
     const reply = await fetchSearchResults(searchId);
-    if (reply?.status === 200) {
-      res.send(reply.data);
-    } else {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+    // logger.info(reply);
+
+    res.send(reply);
+  } catch (er) {
+    logger.error(er);
+  }
+};
+
+export const agencyData = async (req: Request<{}, {}, {}, GetAgencyDataInput['query']>, res: Response) => {
+  const { searchId, termUrl } = req.query;
+
+  try {
+    const reply = await fetchAgencyData(searchId, termUrl);
+
+    res.send(reply);
   } catch (er) {
     logger.error(er);
   }

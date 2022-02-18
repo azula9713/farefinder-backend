@@ -1,0 +1,5 @@
+farefinderapi.devserver.click {
+    reverse_proxy farefinder-backend:1337 {
+        header_down Strict-Transport-Security max-age=31536000;
+    }
+}

@@ -26,6 +26,13 @@ const params = {
   }),
 };
 
+const queryPayload = {
+  query: object({
+    searchId: string({ required_error: 'searchId is required' }),
+    termUrl: string({ required_error: 'termUrl is required' }),
+  }),
+};
+
 const createSeachIdSchema = object({
   ...searchPayload,
 });
@@ -34,7 +41,12 @@ const getSearchResultsSchema = object({
   ...params,
 });
 
+const getAgencyDataSchema = object({
+  ...queryPayload,
+});
+
 type CreateSearchIDInput = TypeOf<typeof createSeachIdSchema>;
 type GetSearchResultsInput = TypeOf<typeof getSearchResultsSchema>;
+type GetAgencyDataInput = TypeOf<typeof getAgencyDataSchema>;
 
-export { CreateSearchIDInput, GetSearchResultsInput };
+export { CreateSearchIDInput, GetSearchResultsInput, GetAgencyDataInput };
