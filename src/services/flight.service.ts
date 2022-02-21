@@ -34,6 +34,7 @@ export const fetchSearchResults = async (searchId: string) => {
 
     if (resp.status === 200) {
       const flights = restructreSearchResults(resp.data);
+
       return flights;
     } else {
       return resp;
@@ -48,19 +49,26 @@ export const fetchSearchResults = async (searchId: string) => {
 export const restructreSearchResults = (data: any) => {
   const flights: any[] = [];
 
-  // data.map((agent: any) => agent?.proposals?.map((proposal: any) => airTrips.push(proposal)));
-  data.map((agent: any) => {
-    if (agent?.proposals) {
-      agent.proposals.map((proposal: any) => {
-        if (flights.find((x) => x.segment[0].flight[0].number === proposal.segment[0].flight[0].number) === undefined) {
-          flights.push(proposal);
-        }
-      });
-    }
-  });
+  try {
+    data.map((agent: any) => {
+      if (agent?.proposals) {
+        agent.proposals.map((proposal: any) => {
+          proposal?.segment?.map((segment: any, segIn: number) => {
+            segment.flight.map((flight: any, flightIn: number) => {
+              if (flights.find((x) => x.segment[segIn]?.flight[flightIn]?.number === flight.number) === undefined) {
+                flights.push(proposal);
+              }
+            });
+          });
+        });
+      }
+    });
 
-  return {
-    flights: flights,
-    agents: data,
-  };
+    return {
+      flights: flights,
+      agents: data,
+    };
+  } catch (error) {
+    logger.error(error);
+  }
 };
