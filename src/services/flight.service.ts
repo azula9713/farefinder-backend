@@ -48,18 +48,31 @@ export const fetchSearchResults = async (searchId: string) => {
 
 export const restructreSearchResults = (data: any) => {
   const flights: any[] = [];
+  let allDifferent = false;
 
   try {
-    data.map((agent: any) => {
+    data.forEach((agent: any) => {
       if (agent?.proposals) {
-        agent.proposals.map((proposal: any) => {
-          proposal?.segment?.map((segment: any, segIn: number) => {
-            segment.flight.map((flight: any, flightIn: number) => {
-              if (flights.find((x) => x.segment[segIn]?.flight[flightIn]?.number === flight.number) === undefined) {
-                flights.push(proposal);
+        agent.proposals.forEach((proposal: any) => {
+          proposal?.segment?.forEach((segment: any, segIn: number) => {
+            segment.flight.forEach((flight: any, flightIn: number) => {
+              if (
+                flights.find(
+                  (x) =>
+                    x.segment[segIn]?.flight[flightIn]?.number === flight.number &&
+                    x.segment[segIn]?.flight[flightIn]?.local_arrival_timestamp === flight.local_arrival_timestamp,
+                ) === undefined
+              ) {
+                allDifferent = true;
+              } else {
+                allDifferent = false;
               }
             });
           });
+
+          if (allDifferent && flights.find((x) => x.sign === proposal.sign) === undefined) {
+            flights.push(proposal);
+          }
         });
       }
     });
