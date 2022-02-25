@@ -30,7 +30,7 @@ export const searchId = async (req: Request<{}, {}, CreateSearchIDInput['body']>
       ':' +
       body.passengers.children.toString() +
       ':' +
-      '0' +
+      body.passengers.infants.toString() +
       ':' +
       body.segments[0].date +
       ':' +
@@ -55,7 +55,7 @@ export const searchId = async (req: Request<{}, {}, CreateSearchIDInput['body']>
       ':' +
       body.passengers.children.toString() +
       ':' +
-      '0' +
+      body.passengers.infants.toString() +
       ':' +
       body.segments[0].date +
       ':' +
@@ -89,7 +89,7 @@ export const searchId = async (req: Request<{}, {}, CreateSearchIDInput['body']>
     passengers: {
       adults: body.passengers.adult.toString(),
       children: body.passengers.children.toString(),
-      infant: '0',
+      infant: body.passengers.infants.toString(),
     },
 
     segments: [
