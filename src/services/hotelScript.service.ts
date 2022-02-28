@@ -15,7 +15,7 @@ const findHotelScript = async (query: FilterQuery<IHotelScript>, options: QueryO
   return hotelScript;
 };
 
-const findAndUpateHotelScript = async (query: FilterQuery<IHotelScript>, update: UpdateQuery<IHotelScript>, options: QueryOptions) => {
+const findAndUpdateHotelScript = async (query: FilterQuery<IHotelScript>, update: UpdateQuery<IHotelScript>, options: QueryOptions) => {
   return HotelScriptModel.findOneAndUpdate(query, update, options);
 };
 
@@ -23,4 +23,4 @@ const findAndDeleteHotelScript = async (query: FilterQuery<IHotelScript>) => {
   return HotelScriptModel.deleteOne(query);
 };
 
-export { createHotelScript, findAllHotelScripts, findHotelScript, findAndUpateHotelScript, findAndDeleteHotelScript };
+export { createHotelScript, findAllHotelScripts, findHotelScript, findAndUpdateHotelScript, findAndDeleteHotelScript };

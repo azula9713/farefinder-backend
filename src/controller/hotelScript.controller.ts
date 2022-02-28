@@ -5,9 +5,9 @@ import {
   createHotelScript,
   findAndUpdateHotelScript,
   findAndDeleteHotelScript,
-  findAllHotelScript,
+  findAllHotelScripts,
   findHotelScript,
-} from '../services/popularLocation.service';
+} from '../services/hotelScript.service';
 import logger from '../utils/logger';
 
 const createHotelScriptHandler = async (req: Request<{}, {}, CreateHotelScriptInput['body']>, res: Response) => {
@@ -37,7 +37,7 @@ const getHotelScriptHandler = async (req: Request<GetHotelScriptInput['params']>
 };
 
 const getAllHotelScriptsHandler = async (req: Request, res: Response) => {
-  const hotelScripts = await findAllHotelScript();
+  const hotelScripts = await findAllHotelScripts();
 
   if (!hotelScripts) {
     return res.status(404).send({ message: 'Hotel Scripts not found' });

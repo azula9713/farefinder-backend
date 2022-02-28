@@ -36,6 +36,6 @@ const hotelScriptSchema = new mongoose.Schema(
   },
 );
 
-const HotelScriptModel = mongoose.model<IHotelScript>('PopularLocation', hotelScriptSchema);
+const HotelScriptModel = mongoose.model<IHotelScript>('HotelScript', hotelScriptSchema);
 
 export default HotelScriptModel;
