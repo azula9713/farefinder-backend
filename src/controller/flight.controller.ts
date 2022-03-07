@@ -87,9 +87,9 @@ export const searchId = async (req: Request<{}, {}, CreateSearchIDInput['body']>
     locale: language,
     trip_class: body.trip_class,
     passengers: {
-      adults: body.passengers.adult.toString(),
-      children: body.passengers.children.toString(),
-      infant: body.passengers.infants.toString(),
+      adults: body.passengers?.adult.toString(),
+      children: body.passengers?.children.toString(),
+      infant: body.passengers?.infants.toString(),
     },
 
     segments: [
