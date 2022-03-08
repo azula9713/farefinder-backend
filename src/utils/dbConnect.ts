@@ -9,7 +9,7 @@ const dbConnect = async () => {
   const dbHost = config.get<string>('mongo.host');
 
   const dbUri = `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/${dbName}?retryWrites=true&w=majority`;
-  const localUri = `mongodb://${dbHost}/${dbName}`;
+  const localUri = `mongodb://${dbHost}:27017/${dbName}`;
   try {
     await mongoose.connect(localUri);
     logger.info('Connected to MongoDB');
