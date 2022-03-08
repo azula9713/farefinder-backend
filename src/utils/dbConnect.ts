@@ -9,9 +9,8 @@ const dbConnect = async () => {
   const dbHost = config.get<string>('mongo.host');
 
   const dbUri = `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/${dbName}?retryWrites=true&w=majority`;
-  const localUri = `mongodb://${dbUser}:${dbPassword}@${dbHost}:27017/${dbName}`;
+  const localUri = `mongodb://${dbHost}:27017/${dbName}`;
   try {
-    console.log('uri: ', localUri);
     await mongoose.connect(localUri);
     logger.info('Connected to MongoDB');
   } catch (err) {
