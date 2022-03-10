@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { restructreSearchResults } from '../utils/flightRestructure';
 import logger from '../utils/logger';
 
 export const createNewFlightId = async (searchObject: object) => {
@@ -33,35 +34,10 @@ export const fetchSearchResults = async (searchId: string) => {
     });
 
     if (resp.status === 200) {
-      const flights = restructreSearchResults(resp.data);
-
-      return flights;
+      return restructreSearchResults(resp.data);
     } else {
       return resp;
     }
-  } catch (error) {
-    logger.error(error);
-  }
-};
-
-export const restructreSearchResults = (data: any) => {
-  const flights: any[] = [];
-
-  try {
-    data.forEach((agent: any) => {
-      if (agent?.proposals) {
-        agent.proposals.forEach((proposal: any) => {
-          if (flights.find((f) => f.sign === proposal.sign) === undefined) {
-            flights.push(proposal);
-          }
-        });
-      }
-    });
-
-    return {
-      flights: flights,
-      agents: data,
-    };
   } catch (error) {
     logger.error(error);
   }
