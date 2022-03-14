@@ -11,8 +11,7 @@ const findAllPopularLocations = async () => {
 };
 
 const findPopularLocation = async (query: FilterQuery<IPopularLocation>, options: QueryOptions = { lean: true }) => {
-  const popularLocation = await PopularLocationModel.findOne(query, {}, options);
-  return popularLocation;
+  return PopularLocationModel.findOne(query, {}, options);
 };
 
 const findAndUpdatePopularLocation = async (
