@@ -11,7 +11,7 @@ const marker = config.get<number>('marker');
 const language = config.get<string>('language');
 const host = config.get<string>('host');
 
-export const searchId = async (req: Request<{}, {}, CreateSearchIDInput['body']>, res: Response) => {
+export const getSearchId = async (req: Request<{}, {}, CreateSearchIDInput['body']>, res: Response) => {
   const body = req.body;
   const { flight_type } = req.body;
   let stringSignarutre = '';
