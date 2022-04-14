@@ -19,7 +19,7 @@ app.use(cors());
 app.use(deserializeUser);
 
 app.listen(port, async () => {
-  logger.info(`App is listening on port at localhost:${port}`);
+  logger.info(`Server is listening on port at localhost:${port}`);
   await dbConnect();
   routes(app);
 });
