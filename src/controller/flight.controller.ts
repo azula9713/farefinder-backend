@@ -72,10 +72,6 @@ export const getSearchId = async (req: Request<{}, {}, CreateSearchIDInput['body
       body.trip_class +
       ':' +
       body.user_ip;
-
-    // res.status(400).send({
-    //   message: 'flight_type must be 0',
-    // });
   }
 
   const generatedmd5 = generateMd5Key(stringSignarutre);
@@ -126,7 +122,6 @@ export const searchResults = async (req: Request<GetSearchResultsInput['params']
 
   try {
     const reply = await fetchSearchResults(searchId);
-    // logger.info(reply);
 
     res.send(reply);
   } catch (er) {

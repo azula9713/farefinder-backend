@@ -41,7 +41,7 @@ const getPopularLocationHandler = async (req: Request<GetPopularLocationInput['p
   return res.send(popLocation);
 };
 
-const getAllPopularLocationsHandler = async (req: Request, res: Response) => {
+const getAllPopularLocationsHandler = async (_req: Request, res: Response) => {
   const popularLocations = await findAllPopularLocations();
 
   if (!popularLocations) {

@@ -36,7 +36,7 @@ const getHotelScriptHandler = async (req: Request<GetHotelScriptInput['params']>
   return res.send(hotelScript);
 };
 
-const getAllHotelScriptsHandler = async (req: Request, res: Response) => {
+const getAllHotelScriptsHandler = async (_req: Request, res: Response) => {
   const hotelScripts = await findAllHotelScripts();
 
   if (!hotelScripts) {

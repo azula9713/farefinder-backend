@@ -3,7 +3,7 @@ import { fetchAllCities } from '../services/cities.service';
 
 import logger from '../utils/logger';
 
-export const citiesData = async (req: Request, res: Response) => {
+export const citiesData = async (_req: Request, res: Response) => {
   try {
     const airports = await fetchAllCities();
 
