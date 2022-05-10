@@ -3,7 +3,7 @@ import { fetchAllAirports } from '../services/airports.service';
 
 import logger from '../utils/logger';
 
-export const airportsData = async (req: Request, res: Response) => {
+export const airportsData = async (_req: Request, res: Response) => {
   try {
     const airports = await fetchAllAirports();
 

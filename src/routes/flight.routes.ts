@@ -3,7 +3,7 @@ import { agencyData, getSearchId, searchResults } from '../controller/flight.con
 
 const router = Router();
 
-router.route('/').get((req, res) => {
+router.route('/').get((_req, res) => {
   res.send('Hello World');
 });
 

@@ -24,19 +24,19 @@ const createSessionHandler = async (req: Request, res: Response) => {
   return res.send({ user, accessToken, refreshToken });
 };
 
-const getUserSessionsHandler = async (req: Request, res: Response) => {
+const getUserSessionsHandler = async (_req: Request, res: Response) => {
   const userId = res.locals.user._id;
   const sessions = await findSessionsByUser({ user: userId, valid: true });
   return res.send(sessions);
 };
 
-const validateSessionHandler = async (req: Request, res: Response) => {
+const validateSessionHandler = async (_req: Request, res: Response) => {
   const userId = res.locals.user._id;
   const user = await findUser({ userId });
   return res.send(user);
 };
 
-const logoutSessionHandler = async (req: Request, res: Response) => {
+const logoutSessionHandler = async (_req: Request, res: Response) => {
   const sessionId = res.locals.user.session;
   await updateSession({ _id: sessionId }, { valid: false });
   return res.send({
