@@ -85,7 +85,7 @@ export const getSearchId = async (req: Request<{}, {}, CreateSearchIDInput['body
     passengers: {
       adults: body.passengers?.adult.toString(),
       children: body.passengers?.children.toString(),
-      infant: body.passengers?.infants.toString(),
+      infants: body.passengers?.infants.toString(),
     },
 
     segments: [
