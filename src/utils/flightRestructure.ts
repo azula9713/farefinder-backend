@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import logger from '../utils/logger';
 
 export const restructreSearchResults = (data: any) => {
   const flights: any[] = [];
-  const agKeys = getAllAgents(data);
+  // const agKeys = getAllAgents(data);
 
   try {
     data.forEach((agent: any) => {
@@ -14,9 +15,11 @@ export const restructreSearchResults = (data: any) => {
         });
       }
     });
+    console.log('flights', flights);
 
     return {
-      flights: removeInvalidFlights(flights, agKeys),
+      // flights: removeInvalidFlights(flights, agKeys),
+      flights,
       agents: data,
     };
   } catch (error) {
@@ -24,32 +27,32 @@ export const restructreSearchResults = (data: any) => {
   }
 };
 
-const getAllAgents = (agents: any[]) => {
-  let allAgents: any[] = [];
-  agents.forEach((agent: any) => {
-    if (agent.proposals) {
-      let agentKey = Object.keys(agent.gates_info)[0];
+// const getAllAgents = (agents: any[]) => {
+//   const allAgents: any[] = [];
+//   agents.forEach((agent: any) => {
+//     if (agent.proposals) {
+//       const agentKey = Object.keys(agent.gates_info)[0];
 
-      //if agentKey is not in allAgents array, add it
+//       //if agentKey is not in allAgents array, add it
 
-      if (!allAgents.includes(agentKey)) {
-        allAgents.push(agentKey);
-      }
-    }
-  });
-  return allAgents;
-};
+//       if (!allAgents.includes(agentKey)) {
+//         allAgents.push(agentKey);
+//       }
+//     }
+//   });
+//   return allAgents;
+// };
 
-const removeInvalidFlights = (flights: any[], agents: any[]) => {
-  let validFlights: any[] = [];
+// const removeInvalidFlights = (flights: any[], agents: any[]) => {
+//   const validFlights: any[] = [];
 
-  flights.forEach((flight: any) => {
-    const flightAk = Object.keys(flight.terms)[0];
+//   flights.forEach((flight: any) => {
+//     const flightAk = Object.keys(flight.terms)[0];
 
-    if (agents.includes(flightAk)) {
-      validFlights.push(flight);
-    }
-  });
+//     if (agents.includes(flightAk)) {
+//       validFlights.push(flight);
+//     }
+//   });
 
-  return validFlights;
-};
+//   return validFlights;
+// };
