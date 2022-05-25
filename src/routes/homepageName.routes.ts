@@ -7,8 +7,8 @@ import { createHomePageLocationSchema, updateHomePageLocationSchema, getHomePage
 
 const router = Router();
 
-router.route('/view/:hotelScriptId').get(validate(getHomePageLocationSchema), getHomeLocationHandler);
+router.route('/view/:locationNameId').get(validate(getHomePageLocationSchema), getHomeLocationHandler);
 router.route('/create').post([requireUser, validate(createHomePageLocationSchema)], createHomeLocationHandler);
-router.route('/update/:hotelScriptId').put([requireUser, validate(updateHomePageLocationSchema)], updateHomeLocationHandler);
+router.route('/update/:locationNameId').put([requireUser, validate(updateHomePageLocationSchema)], updateHomeLocationHandler);
 
 export default router;
