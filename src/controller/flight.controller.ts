@@ -72,6 +72,13 @@ export const getSearchId = async (req: Request<{}, {}, CreateSearchIDInput['body
       body.trip_class +
       ':' +
       body.user_ip;
+  } else if (flight_type === 2) {
+    const noOfSegments = body.segments.length;
+    stringSignarutre = token + ':' + host + ':' + language + ':' + marker.toString() + ':';
+    for (let i = 0; i < noOfSegments; i++) {
+      stringSignarutre += body.segments[i].date + ':' + body.segments[i].destination + ':' + body.segments[i].origin + ':';
+    }
+    stringSignarutre += body.trip_class + ':' + body.user_ip;
   }
 
   const generatedmd5 = generateMd5Key(stringSignarutre);
