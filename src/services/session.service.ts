@@ -33,12 +33,10 @@ const reIssueAccessToken = async (refreshToken: string) => {
 
   if (!user) return false;
 
-  const accessToken = signJWT(
+  return signJWT(
     { ...user, session: session._id },
     { expiresIn: config.get('accessTokenTTL') }, // 15 minutes
   );
-
-  return accessToken;
 };
 
 export { createSession, findSessionsByUser, updateSession, reIssueAccessToken };
