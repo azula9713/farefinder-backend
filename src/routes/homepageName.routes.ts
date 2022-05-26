@@ -12,7 +12,7 @@ import { createHomePageLocationSchema, updateHomePageLocationSchema, getHomePage
 
 const router = Router();
 
-router.route('/all').get([requireUser, getAllHomeLocationsHandler]);
+router.route('/all').get(getAllHomeLocationsHandler);
 router.route('/view/:locationNameId').get(validate(getHomePageLocationSchema), getHomeLocationHandler);
 router.route('/create').post([requireUser, validate(createHomePageLocationSchema)], createHomeLocationHandler);
 router.route('/update/:locationNameId').put([requireUser, validate(updateHomePageLocationSchema)], updateHomeLocationHandler);
