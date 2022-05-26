@@ -25,11 +25,6 @@ export default {
   currency: 'usd',
   language: 'en',
   host: 'localhost',
-  jwtPublicKey: `-----BEGIN PUBLIC KEY-----
-MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgHfUhS/dEvx+Bs6UJHoqCRbA1N8X
-oM37YhpxlUgtpNJptLRRAZ5wrhQ6WvgrqArI4qQb4uWSYVZCFPiekBaY+nud68cV
-C1wMQFBKJiJqQlSkKdJ+wB0Gm3aCT33og13uFBqZXqqD/OxqBuqupXFBfX4VVz6R
-cFMURAg5gaoHcUHpAgMBAAE=
------END PUBLIC KEY-----`,
-  jwtPrivateKey: ``,
+  jwtPublicKey: 'secretPublic',
+  jwtPrivateKey: 'secretPrivate',
 };
