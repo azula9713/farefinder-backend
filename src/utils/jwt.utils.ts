@@ -4,7 +4,7 @@ import confg from 'config';
 const privateKey = confg.get<string>('jwtPrivateKey');
 // const publicKey = confg.get<string>('jwtPublicKey');
 
-const signJWT = (object: Record<string, {}>, options?: jwt.SignOptions | undefined) => {
+const signJWT = (object: Record<string, unknown>, options?: jwt.SignOptions | undefined) => {
   return jwt.sign(object, privateKey, {
     ...options,
   });
